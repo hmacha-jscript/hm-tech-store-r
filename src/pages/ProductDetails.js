@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import { useParams, useHistory } from 'react-router-dom';
 import { ProductContext } from '../context/products';
+import { CartContext } from '../context/cart.js';
 import Error from '../pages/Error';
 
 export default function ProductDetails() {
   const { productId } = useParams();
   const history = useHistory();
   const { products } = useContext(ProductContext);
+  const { cart, addToCart } = useContext(CartContext);
   const product = products.find(item => item.id === Number(productId))
   if (!product) {
     return <Error />
@@ -23,7 +25,10 @@ export default function ProductDetails() {
         <p>{description}</p>
         <button
           className="btn btn-primary btn-block"
-          onClick={() => { history.push('/cart') }}>add to cart</button>
+          onClick={() => {
+            addToCart(product)
+            history.push('/cart')
+          }}>add to cart</button>
       </article>
     </section>
   );

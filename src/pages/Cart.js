@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 export default function Cart() {
   const user = false;
   const { cart, total } = useContext(CartContext);
-  console.log(cart)
   if (cart.length === 0) {
     return <EmptyCart />
   }
